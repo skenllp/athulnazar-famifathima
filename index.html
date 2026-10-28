@@ -3,23 +3,23 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Dr. Athul Nazar &amp; Fami Fathima | Wedding Invitation</title>
-  <meta name="description" content="Join Dr. Athul Nazar and Fami Fathima for their wedding celebration on 15 November 2026 at Marina Lawn, Bolgatty Palace and Island Resort, Ernakulam.">
+  <title>Dr. Fami Fathima &amp; Dr. Athul Nazar | Nikkah Invitation</title>
+  <meta name="description" content="Join Dr. Fami Fathima and Dr. Athul Nazar for their Nikkah ceremony on 15 November 2026 at Marina Lawn, Bolgatty Palace and Island Resort, Ernakulam.">
   <meta name="theme-color" content="#B58F9B">
 
   <!-- Open Graph / Twitter -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Dr. Athul Nazar &amp; Fami Fathima | Wedding Invitation">
-  <meta property="og:description" content="Join Dr. Athul Nazar and Fami Fathima for their wedding celebration on 15 November 2026 at Marina Lawn, Bolgatty Palace and Island Resort, Ernakulam.">
+  <meta property="og:title" content="Dr. Fami Fathima &amp; Dr. Athul Nazar | Nikkah Invitation">
+  <meta property="og:description" content="Join Dr. Fami Fathima and Dr. Athul Nazar for their Nikkah ceremony on 15 November 2026 at Marina Lawn, Bolgatty Palace and Island Resort, Ernakulam.">
   <meta property="og:locale" content="en_IN">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Dr. Athul Nazar &amp; Fami Fathima | Wedding Invitation">
+  <meta name="twitter:title" content="Dr. Fami Fathima &amp; Dr. Athul Nazar | Nikkah Invitation">
   <meta name="twitter:description" content="Join us on 15 November 2026 at Marina Lawn, Bolgatty Palace and Island Resort, Ernakulam.">
   <meta property="og:url" content="https://athulnazar-famifathima.vercel.app/">
   <meta property="og:image" content="https://athulnazar-famifathima.vercel.app/og-image.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Wedding invitation of Dr. Athul Nazar and Fami Fathima, 15 November 2026">
+  <meta property="og:image:alt" content="Nikkah invitation of Dr. Fami Fathima and Dr. Athul Nazar, 15 November 2026">
   <meta name="twitter:image" content="https://athulnazar-famifathima.vercel.app/og-image.jpg">
   <link rel="canonical" href="https://athulnazar-famifathima.vercel.app/">
 
@@ -38,7 +38,7 @@
   {
     "@context": "https://schema.org",
     "@type": "Event",
-    "name": "Wedding of Dr. Athul Nazar & Fami Fathima",
+    "name": "Nikkah of Dr. Fami Fathima & Dr. Athul Nazar",
     "startDate": "2026-11-15T18:00:00+05:30",
     "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
     "location": {
@@ -62,9 +62,9 @@
       </video>
       <!-- same first frame, held on top until the video is really painting, so there is no blink on start -->
       <img class="opening__poster" id="openPoster" src="assets/poster.jpg" alt="" decoding="sync">
+      <!-- invisible tap target sitting exactly on the wax seal that is already in the video -->
+      <button type="button" class="tap tap--seal" id="tapOpen" aria-label="Tap the seal to open the invitation" hidden></button>
     </div>
-    <button type="button" class="tap" id="tapOpen" hidden>Open Invitation</button>
-    <button type="button" class="skip" id="skipBtn">Skip</button>
   </div>
 
   <!-- ============ MUSIC (appears only if assets/music.mp3 exists) ============ -->
@@ -75,7 +75,7 @@
 
     <main class="stage" id="stage">
 
-    <!-- ============ 1. WEDDING INVITATION ============ -->
+    <!-- ============ 1. NIKKAH INVITATION ============ -->
     <section class="page page--invitation" id="invitation" style="--ar:941/1672" aria-labelledby="names">
       <picture class="page__bg">
         <source srcset="assets/invitation.webp" type="image/webp">
@@ -84,12 +84,12 @@
       <div class="page__sheen" aria-hidden="true"></div>
 
       <div class="content content--invitation">
-        <p class="eyebrow eyebrow--ruled" data-reveal="fade" style="--d:0s"><span>Wedding Invitation</span></p>
+        <p class="eyebrow eyebrow--ruled" data-reveal="fade" style="--d:0s"><span>Nikkah Invitation</span></p>
 
         <h1 class="names" id="names">
-          <span class="name" data-reveal style="--d:.4s">Dr. Athul Nazar</span>
+          <span class="name" data-reveal style="--d:.4s">Dr. Fami Fathima</span>
           <span class="amp" data-reveal="fade" style="--d:.9s">&amp;</span>
-          <span class="name" data-reveal style="--d:1.2s">Fami Fathima</span>
+          <span class="name" data-reveal style="--d:1.2s">Dr. Athul Nazar</span>
         </h1>
 
         <p class="lead" data-reveal style="--d:1.8s">Together with our families,<br>we joyfully invite you to celebrate<br>the beginning of our beautiful journey.</p>
@@ -97,7 +97,7 @@
         <div class="orn" aria-hidden="true" data-reveal="fade" style="--d:2.1s"><i></i></div>
 
         <div class="when" data-reveal style="--d:2.3s">
-          <p class="label">Sunday</p>
+          <p class="label">Nikkah · Sunday</p>
           <p class="date">15 November 2026</p>
           <p class="label">From 6:00 PM onwards</p>
         </div>
@@ -122,7 +122,7 @@
         <h2 class="h2" id="cd-title" data-reveal style="--d:.15s">Counting Down<br>to Forever</h2>
         <p class="sub" data-reveal style="--d:.35s">Until Our Special Day</p>
 
-        <div class="timer" id="timer" role="timer" aria-label="Time remaining until the wedding" data-reveal style="--d:.6s">
+        <div class="timer" id="timer" role="timer" aria-label="Time remaining until the Nikkah" data-reveal style="--d:.6s">
           <div class="unit"><span class="num" id="cdDays">00</span><span class="lbl">Days</span></div>
           <div class="unit"><span class="num" id="cdHours">00</span><span class="lbl">Hours</span></div>
           <div class="unit"><span class="num" id="cdMins">00</span><span class="lbl">Minutes</span></div>
@@ -150,17 +150,17 @@
           <div class="orn" aria-hidden="true" data-reveal="fade" style="--d:.15s"><i></i></div>
 
           <article class="family" data-reveal style="--d:.3s">
-            <p class="label">The Groom</p>
-            <h3 class="person">Dr. Athul Nazar</h3>
-            <p class="beloved">Beloved son of</p>
-            <p class="parents">Dr. M. A. Nazar<br><span class="and">&amp;</span><br>Simi Nazar</p>
-            <address class="address">Gazal 15D,<br>Jawahar Nagar,<br>Kurudikkad, Pudussery,<br>Palakkad – 678623</address>
-            <p class="phone"><span>Phone:</span> <a href="tel:+919846984448">9846984448</a></p>
+            <p class="label">The Bride</p>
+            <h3 class="person">Dr. Fami Fathima</h3>
+            <p class="beloved">Beloved daughter of</p>
+            <p class="parents">T. M. Jafarkhan<br><span class="and">&amp;</span><br>Arifa Jafar</p>
+            <address class="address">Thenammakkal House,<br>Anithottam,<br>Kanjirappally – 686507</address>
+            <p class="phone"><span>Phone:</span> <a href="tel:+919847695493">9847695493</a></p>
           </article>
         </div>
       </section>
 
-      <section class="page page--families" style="--ar:941/1671" aria-label="The bride's family">
+      <section class="page page--families" style="--ar:941/1671" aria-label="The groom's family">
         <picture class="page__bg">
           <source srcset="assets/families.webp" type="image/webp">
           <img src="assets/families.png" alt="" width="941" height="1671" loading="lazy" decoding="async">
@@ -171,12 +171,12 @@
           <div class="orn orn--wide" aria-hidden="true" data-reveal="fade"><i></i></div>
 
           <article class="family" data-reveal style="--d:.2s">
-            <p class="label">The Bride</p>
-            <h3 class="person">Fami Fathima</h3>
-            <p class="beloved">Beloved daughter of</p>
-            <p class="parents">T. M. Jafarkhan<br><span class="and">&amp;</span><br>Arifa Jafar</p>
-            <address class="address">Thenammakkal House,<br>Anithottam,<br>Kanjirappally – 686507</address>
-            <p class="phone"><span>Phone:</span> <a href="tel:+919847695493">9847695493</a></p>
+            <p class="label">The Groom</p>
+            <h3 class="person">Dr. Athul Nazar</h3>
+            <p class="beloved">Beloved son of</p>
+            <p class="parents">Dr. M. A. Nazar<br><span class="and">&amp;</span><br>Simi Nazar</p>
+            <address class="address">Gazal,<br>Jawahar Nagar,<br>Kurudikkad, Pudussery,<br>Palakkad – 678623</address>
+            <p class="phone"><span>Phone:</span> <a href="tel:+919846984448">9846984448</a></p>
           </article>
 
           <div class="orn orn--wide" aria-hidden="true" data-reveal="fade" style="--d:.5s"><i></i></div>
@@ -201,7 +201,7 @@
       <div class="half half--top" aria-labelledby="venue-title">
         <div class="content content--venue">
           <h2 class="h2" id="venue-title" data-reveal>Where Love<br>Celebrates</h2>
-          <p class="sub" data-reveal style="--d:.2s">Wedding Venue</p>
+          <p class="sub" data-reveal style="--d:.2s">Nikkah Venue</p>
           <div class="orn" aria-hidden="true" data-reveal="fade" style="--d:.3s"><i></i></div>
 
           <div class="venue-block" data-reveal style="--d:.45s">
@@ -236,7 +236,7 @@
 
           <div class="closing" data-reveal style="--d:.7s">
             <p class="label">With Love</p>
-            <p class="signature">Dr. Athul Nazar<br>&amp; Fami Fathima</p>
+            <p class="signature">Dr. Fami Fathima<br>&amp; Dr. Athul Nazar</p>
             <p class="date-num">15.11.2026</p>
             <span class="flourish" aria-hidden="true"><i></i><i></i><i></i></span>
           </div>

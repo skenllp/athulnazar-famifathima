@@ -1,5 +1,5 @@
 /* ==========================================================
-   Dr. Athul Nazar & Fami Fathima — Wedding Invitation
+   Dr. Fami Fathima & Dr. Athul Nazar — Nikkah Invitation
    Vanilla ES6 · no libraries
    ========================================================== */
 (() => {
@@ -21,7 +21,6 @@
   const opening = $('#opening');
   const video = $('#openVideo');
   const tapBtn = $('#tapOpen');
-  const skipBtn = $('#skipBtn');
   const firstPage = $('#invitation');
 
   /* ==========================================================
@@ -67,8 +66,14 @@
     }
 
     /** Must be called from inside a user gesture (click/tap). Fades in gently. */
-    function play() {
+    let started = false;
+    function play() {          // public: only the first call per page does anything (toggle handles later pauses/resumes)
+      if (started) return;
+      start();
+    }
+    function start() {
       if (!audio) return;
+      started = true;
       const target = 0.6;
       audio.volume = 0;
       const attempt = (retry) => {
@@ -92,9 +97,23 @@
     }
     function toggle() {
       if (!audio || !available) return;
-      if (audio.paused) play();
+      if (audio.paused) start();
       else { audio.pause(); setState(false); }
     }
+
+    // If the invitation opens by itself, the browser won't allow sound yet.
+    // Start the music on the guest's first tap / click / key press instead.
+    function armOnFirstInteraction() {
+      if (!audio) return;
+      const evts = ['pointerup', 'touchend', 'click', 'keydown'];
+      const onFirst = (e) => {
+        evts.forEach((t) => document.removeEventListener(t, onFirst, true));
+        if (e.target && e.target.closest && e.target.closest('#musicBtn')) return;   // the speaker button handles itself
+        if (!started) start();
+      };
+      evts.forEach((t) => document.addEventListener(t, onFirst, true));
+    }
+    armOnFirstInteraction();
     return { play };
   })();
 
@@ -144,16 +163,15 @@
     holdTimer = setTimeout(() => revealInvitation(), 0);
   }
 
-  function showTapButton(label) {
+  function showTapButton() {
     if (revealed) return;
-    if (label) tapBtn.textContent = label;
     tapBtn.hidden = false;
   }
 
   function startVideo() {
     // The video's first frame (the poster) is the closed invitation. Wait for the guest to open it.
     video.pause();
-    showTapButton('Open Invitation');
+    showTapButton();
   }
 
   // drop the poster overlay only once the video has painted a frame past the start (no black/blank blink)
@@ -179,17 +197,22 @@
   const firstSource = $('source', video);
   if (firstSource) firstSource.addEventListener('error', () => revealInvitation({ fast: true }));
 
-  tapBtn.addEventListener('click', () => {
-    music.play();                                              // a real user gesture — allowed
+  let autoTimer = null;
+  function openNow({ withMusic = false } = {}) {
+    if (opened) return;
+    opened = true;
+    clearTimeout(autoTimer);
+    if (withMusic) music.play();                               // only inside a real user gesture
     tapBtn.hidden = true;
     if (reduceMotion) { revealInvitation(); return; }
     video.play().catch(() => revealInvitation({ fast: true }));
-  });
+  }
+  let opened = false;
 
-  skipBtn.addEventListener('click', () => {
-    music.play();
-    revealInvitation({ fast: true });
-  });
+  tapBtn.addEventListener('click', () => openNow({ withMusic: true }));
+
+  // if the guest doesn't tap the seal, the invitation opens by itself after 6 seconds
+  autoTimer = setTimeout(() => openNow(), 6000);
 
   startVideo();
 
@@ -279,7 +302,7 @@
     setText('m', pad(mins));
     setText('s', pad(secs));
     if (secs === 0 || !els.summary.textContent) {
-      els.summary.textContent = `${days} days, ${hours} hours and ${mins} minutes until the wedding.`;
+      els.summary.textContent = `${days} days, ${hours} hours and ${mins} minutes until the Nikkah.`;
     }
     // re-align to the next whole second so the display never drifts
     tickTimer = setTimeout(tick, 1000 - (Date.now() % 1000) + 5);
