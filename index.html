@@ -60,6 +60,8 @@
              controlslist="nodownload noplaybackrate" aria-hidden="true">
         <source src="assets/opening.mp4" type="video/mp4">
       </video>
+      <!-- same first frame, held on top until the video is really painting, so there is no blink on start -->
+      <img class="opening__poster" id="openPoster" src="assets/poster.jpg" alt="" decoding="sync">
     </div>
     <button type="button" class="tap" id="tapOpen" hidden>Open Invitation</button>
     <button type="button" class="skip" id="skipBtn">Skip</button>

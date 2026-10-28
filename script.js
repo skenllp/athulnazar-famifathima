@@ -44,7 +44,7 @@
       audio = new Audio();
       audio.loop = true;
       audio.volume = 0.6;
-      audio.preload = 'metadata';
+      audio.preload = 'auto';           // buffer while the guest looks at the closed invitation
       audio.addEventListener('loadedmetadata', () => {
         available = true;
         btn.hidden = false;
@@ -66,11 +66,29 @@
       });
     }
 
-    /** Must be called from inside a user gesture (click/tap). */
+    /** Must be called from inside a user gesture (click/tap). Fades in gently. */
     function play() {
       if (!audio) return;
-      const p = audio.play();
-      if (p && p.then) p.then(() => setState(true)).catch(() => setState(false));
+      const target = 0.6;
+      audio.volume = 0;
+      const attempt = (retry) => {
+        const p = audio.play();
+        if (!p || !p.then) return;
+        p.then(() => {
+          setState(true);
+          let v = 0;
+          const fade = setInterval(() => {
+            v = Math.min(target, v + 0.05);
+            audio.volume = v;
+            if (v >= target) clearInterval(fade);
+          }, 120);
+        }).catch(() => {
+          // not buffered yet → try again as soon as it can play; otherwise leave the button for the guest
+          if (retry && !audio.error) audio.addEventListener('canplay', () => attempt(false), { once: true });
+          else { audio.volume = target; setState(false); }
+        });
+      };
+      attempt(true);
     }
     function toggle() {
       if (!audio || !available) return;
@@ -138,7 +156,20 @@
     showTapButton('Open Invitation');
   }
 
-  video.addEventListener('playing', () => { tapBtn.hidden = true; });
+  // drop the poster overlay only once the video has painted a frame past the start (no black/blank blink)
+  const poster = $('#openPoster');
+  let posterGone = false;
+  function hidePoster() {
+    if (posterGone || !poster) return;
+    posterGone = true;
+    poster.classList.add('is-gone');
+    setTimeout(() => poster.remove(), 400);
+  }
+  video.addEventListener('playing', () => {
+    tapBtn.hidden = true;
+    if (video.requestVideoFrameCallback) video.requestVideoFrameCallback(() => setTimeout(hidePoster, 60));
+    else setTimeout(hidePoster, 250);
+  });
   video.addEventListener('ended', scheduleReveal);
   video.addEventListener('timeupdate', () => {
     // the last ~1.8s of the clip is a still frame, so start the crossfade early
