@@ -1,0 +1,29 @@
+Create a realistic, elegant 5-second wedding invitation unwrapping animation using the provided first and last frames.
+
+The invitation card remains perfectly stationary throughout the entire video. Preserve the exact dusty rose colour, embossed floral borders, metallic textures, decorative frame, and symmetrical composition.
+
+At the beginning, a rose-gold wax seal holds two soft satin ribbon sections together across the centre of the invitation.
+
+The wax seal gently lifts straight toward the camera and disappears. Immediately afterward, the two satin ribbon sections separate naturally.
+
+The left ribbon slides smoothly off the left edge of the frame, while the right ribbon slides smoothly off the right edge. The ribbons must move like real lightweight silk fabric, with gentle folds, natural tension release, and realistic gravity.
+
+The underlying invitation remains completely unchanged as the ribbons move away.
+
+Reveal the entire empty ornamental invitation card beneath, maintaining a clean, uninterrupted central space for website text.
+
+The final second shows the fully uncovered invitation card, perfectly still.
+
+**Strict animation rules:**
+- No ribbon forming a bow or knot.
+- No new ribbon loops or fabric appearing.
+- No transformation of the invitation card.
+- No changes to floral engravings or decorative borders.
+- No text, letters, monograms, or numbers.
+- No camera movement, zoom, rotation, or scene transition.
+- No distortion, morphing, or flickering.
+- Maintain identical lighting, colours, scale, and framing.
+
+The only moving elements should be the wax seal and the two satin ribbon sections.
+
+Photorealistic luxury stationery animation, physically accurate silk movement, slow cinematic pacing, seamless website-opening transition.
