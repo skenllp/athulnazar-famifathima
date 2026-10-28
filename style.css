@@ -159,6 +159,16 @@ button { font: inherit; color: inherit; }
 .page__bg img { width: 100%; height: 100%; object-fit: cover; }
 .page__bg--flip { transform: scaleX(-1); }
 
+/* venue + compliments share one tall page: the artwork is mirrored at the join so the seam is seamless */
+.final__bg { position: absolute; inset: 0; z-index: -2; }
+.final__half { position: absolute; left: 0; right: 0; height: 50%; display: block; overflow: hidden; }
+.final__half img { width: 100%; height: 100%; object-fit: cover; }
+.final__half--top { top: 0; transform: scaleY(-1); }
+.final__half--bottom { bottom: 0; }
+.half { position: absolute; left: 0; right: 0; height: 50%; }
+.half--top { top: 0; }
+.half--bottom { bottom: 0; }
+
 /* soft drifting light, a whisper of movement over the embossed paper */
 .page__sheen {
   position: absolute; inset: -12% -12%;
@@ -450,7 +460,7 @@ button { font: inherit; color: inherit; }
 .flourish i:nth-child(2) { width: calc(var(--u) * 1.8); height: calc(var(--u) * 1.8); min-width: 7px; min-height: 7px; }
 
 /* darker mauve artwork: use full plum for small text */
-.page--venue .label, .page--compliments .label, .page--venue .sub, .page--compliments .date-num { color: var(--plum); }
+.page--final .label, .page--final .sub, .page--final .date-num { color: var(--plum); }
 
 /* ==========================================================
    REVEAL ANIMATIONS (only when JS is available)

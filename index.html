@@ -184,61 +184,62 @@
       </section>
     </div>
 
-    <!-- ============ 4. VENUE ============ -->
-    <section class="page page--venue" id="venue" style="--ar:1092/1440" aria-labelledby="venue-title">
-      <picture class="page__bg page__bg--flip">
-        <source srcset="assets/compliments.webp" type="image/webp">
-        <img src="assets/compliments.png" alt="" width="1092" height="1440" loading="lazy" decoding="async">
-      </picture>
-      <div class="page__sheen" aria-hidden="true"></div>
-
-      <div class="content content--venue">
-        <h2 class="h2" id="venue-title" data-reveal>Where Love<br>Celebrates</h2>
-        <p class="sub" data-reveal style="--d:.2s">Wedding Venue</p>
-        <div class="orn" aria-hidden="true" data-reveal="fade" style="--d:.3s"><i></i></div>
-
-        <div class="venue-block" data-reveal style="--d:.45s">
-          <p class="venue-name">Marina Lawn</p>
-          <p class="venue-place">Bolgatty Palace and Island Resort<br>Ernakulam, Kerala</p>
-        </div>
-
-        <div class="when" data-reveal style="--d:.65s">
-          <p class="date date--small">Sunday, 15 November 2026</p>
-          <p class="label">From 6:00 PM</p>
-        </div>
-
-        <a class="btn" href="https://www.google.com/maps/search/?api=1&amp;query=Bolgatty+Palace+Island+Resort+Kochi"
-           target="_blank" rel="noopener noreferrer" data-reveal style="--d:.85s">View Location</a>
+    <!-- ============ 4 + 5. VENUE & WITH COMPLIMENTS (one continuous page) ============ -->
+    <section class="page page--final" id="venue" style="--ar:1092/2880" aria-label="Venue and compliments">
+      <div class="final__bg">
+        <picture class="final__half final__half--top">
+          <source srcset="assets/compliments.webp" type="image/webp">
+          <img src="assets/compliments.png" alt="" width="1092" height="1440" loading="lazy" decoding="async">
+        </picture>
+        <picture class="final__half final__half--bottom">
+          <source srcset="assets/compliments.webp" type="image/webp">
+          <img src="assets/compliments.png" alt="" width="1092" height="1440" loading="lazy" decoding="async">
+        </picture>
       </div>
-    </section>
-
-    <!-- ============ 5. WITH COMPLIMENTS ============ -->
-    <section class="page page--compliments" id="compliments" style="--ar:1092/1440" aria-labelledby="comp-title">
-      <picture class="page__bg">
-        <source srcset="assets/compliments.webp" type="image/webp">
-        <img src="assets/compliments.png" alt="" width="1092" height="1440" loading="lazy" decoding="async">
-      </picture>
       <div class="page__sheen" aria-hidden="true"></div>
 
-      <div class="content content--compliments">
-        <h2 class="h2" id="comp-title" data-reveal>With Compliments</h2>
+      <div class="half half--top" aria-labelledby="venue-title">
+        <div class="content content--venue">
+          <h2 class="h2" id="venue-title" data-reveal>Where Love<br>Celebrates</h2>
+          <p class="sub" data-reveal style="--d:.2s">Wedding Venue</p>
+          <div class="orn" aria-hidden="true" data-reveal="fade" style="--d:.3s"><i></i></div>
 
-        <ul class="names-list" data-reveal style="--d:.2s">
-          <li>Dr. Jefil</li>
-          <li>Dr. Jasmine</li>
-          <li>Dr. Jesil</li>
-          <li>Dr. Asiya</li>
-          <li>Keith</li>
-          <li>Emrik</li>
-        </ul>
+          <div class="venue-block" data-reveal style="--d:.45s">
+            <p class="venue-name">Marina Lawn</p>
+            <p class="venue-place">Bolgatty Palace and Island Resort<br>Ernakulam, Kerala</p>
+          </div>
 
-        <p class="lead" data-reveal style="--d:.45s">Your presence and blessings<br>will make our celebration<br>even more memorable.</p>
+          <div class="when" data-reveal style="--d:.65s">
+            <p class="date date--small">Sunday, 15 November 2026</p>
+            <p class="label">From 6:00 PM</p>
+          </div>
 
-        <div class="closing" data-reveal style="--d:.7s">
-          <p class="label">With Love</p>
-          <p class="signature">Dr. Athul Nazar<br>&amp; Fami Fathima</p>
-          <p class="date-num">15.11.2026</p>
-          <span class="flourish" aria-hidden="true"><i></i><i></i><i></i></span>
+          <a class="btn" href="https://www.google.com/maps/search/?api=1&amp;query=Bolgatty+Palace+Island+Resort+Kochi"
+             target="_blank" rel="noopener noreferrer" data-reveal style="--d:.85s">View Location</a>
+        </div>
+      </div>
+
+      <div class="half half--bottom" id="compliments" aria-labelledby="comp-title">
+        <div class="content content--compliments">
+          <h2 class="h2" id="comp-title" data-reveal>With Compliments</h2>
+
+          <ul class="names-list" data-reveal style="--d:.2s">
+            <li>Dr. Jefil</li>
+            <li>Dr. Jasmine</li>
+            <li>Dr. Jesil</li>
+            <li>Dr. Asiya</li>
+            <li>Keith</li>
+            <li>Emrik</li>
+          </ul>
+
+          <p class="lead" data-reveal style="--d:.45s">Your presence and blessings<br>will make our celebration<br>even more memorable.</p>
+
+          <div class="closing" data-reveal style="--d:.7s">
+            <p class="label">With Love</p>
+            <p class="signature">Dr. Athul Nazar<br>&amp; Fami Fathima</p>
+            <p class="date-num">15.11.2026</p>
+            <span class="flourish" aria-hidden="true"><i></i><i></i><i></i></span>
+          </div>
         </div>
       </div>
     </section>
