@@ -169,6 +169,34 @@ button { font: inherit; color: inherit; }
 }
 .tap--seal:focus-visible { outline: 2px solid rgba(255, 255, 255, .8); outline-offset: 2px; }
 
+.skip {
+  position: absolute;
+  left: 50%;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 16px);
+  transform: translateX(-50%);
+  min-height: 36px;
+  padding: 0 20px;
+  border-radius: 999px;
+  border: 1px solid rgba(86, 58, 71, .45);
+  background: rgba(247, 235, 230, .85);
+  color: var(--plum);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background .3s, color .3s, border-color .3s;
+  opacity: 0.8;
+  z-index: 3;
+}
+.skip:hover {
+  background: var(--plum);
+  color: var(--ivory);
+  border-color: var(--plum);
+  opacity: 1;
+}
+
 /* ==========================================================
    LAYOUT — stacked portrait "cards" on a dusty-mauve table
    ========================================================== */
@@ -321,7 +349,7 @@ button { font: inherit; color: inherit; }
   font-weight: 400;
 }
 .name {
-  font-family: 'Great Vibes', 'Snell Roundhand', 'Brush Script MT', cursive;
+  font-family: 'Pinyon Script', 'Great Vibes', 'Snell Roundhand', 'Brush Script MT', cursive;
   font-size: var(--fs-name); line-height: 1.12;
   color: var(--plum);
   white-space: nowrap;
@@ -335,6 +363,110 @@ button { font: inherit; color: inherit; }
 .content--invitation .orn { margin: calc(var(--u) * 3.2) 0 calc(var(--u) * 3); }
 .content--invitation .when { display: flex; flex-direction: column; align-items: center; gap: calc(var(--u) * .5); }
 .content--invitation .where { margin-top: calc(var(--u) * 4.2); display: flex; flex-direction: column; align-items: center; gap: calc(var(--u) * .8); }
+
+/* scroll down button */
+.scroll-down {
+  position: absolute;
+  bottom: -35px;
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 44px;
+  height: 44px;
+  padding: 0 clamp(18px, calc(var(--u) * 5), 24px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  border-radius: 999px;
+  border: 1px solid rgba(183, 133, 126, .6);
+  background: rgba(247, 235, 230, .75);
+  color: var(--plum);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: all .4s var(--ease);
+  animation: scrollBounce 2.2s ease-in-out infinite;
+}
+.scroll-down:hover {
+  background: rgba(247, 235, 230, .95);
+  border-color: var(--plum);
+  transform: translateX(-50%) translateY(-4px);
+}
+.scroll-down__text {
+  font-size: clamp(9px, calc(var(--u) * 2.5), 11px);
+  font-weight: 500;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--plum-soft);
+  margin-right: -.2em;
+}
+.scroll-down svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  margin-top: -2px;
+}
+@keyframes scrollBounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(6px); }
+}
+
+/* ==========================================================
+   MUSIC CONTROL BUTTON
+   ========================================================== */
+.music-control {
+  position: fixed;
+  top: calc(env(safe-area-inset-top, 0px) + 20px);
+  right: calc(env(safe-area-inset-right, 0px) + 20px);
+  z-index: 50;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(183, 133, 126, .6);
+  background: rgba(247, 235, 230, .9);
+  color: var(--plum);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: all .3s var(--ease);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(86, 58, 71, .15);
+}
+.music-control:hover {
+  background: rgba(247, 235, 230, 1);
+  border-color: var(--plum);
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(86, 58, 71, .2);
+}
+.music-control[hidden] {
+  display: none;
+}
+.music-control__icon {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+  transition: opacity .2s;
+}
+.music-control__icon--play {
+  opacity: 1;
+  margin-left: 2px;
+}
+.music-control__icon--pause {
+  position: absolute;
+  opacity: 0;
+}
+.music-control.is-playing .music-control__icon--play {
+  opacity: 0;
+}
+.music-control.is-playing .music-control__icon--pause {
+  opacity: 1;
+}
 
 /* ==========================================================
    2 · COUNTDOWN
@@ -369,7 +501,7 @@ button { font: inherit; color: inherit; }
   margin-right: -.16em;
 }
 .timer-done {
-  font-family: 'Great Vibes', cursive;
+  font-family: 'Pinyon Script', 'Great Vibes', cursive;
   font-size: clamp(30px, calc(var(--u) * 9), 50px); line-height: 1.2;
   color: var(--plum); margin: calc(var(--u) * 3) 0;
 }
@@ -385,7 +517,7 @@ button { font: inherit; color: inherit; }
 .family { display: flex; flex-direction: column; align-items: center; }
 .family .label { margin-bottom: calc(var(--u) * 1.4); }
 .person {
-  font-family: 'Great Vibes', cursive; font-weight: 400;
+  font-family: 'Pinyon Script', 'Great Vibes', cursive; font-weight: 400;
   font-size: calc(var(--fs-name) * .84); line-height: 1.1;
   color: var(--plum); white-space: nowrap;
 }
@@ -474,7 +606,7 @@ button { font: inherit; color: inherit; }
 
 .closing { display: flex; flex-direction: column; align-items: center; gap: calc(var(--u) * .6); }
 .signature {
-  font-family: 'Great Vibes', cursive;
+  font-family: 'Pinyon Script', 'Great Vibes', cursive;
   font-size: clamp(25px, calc(var(--u) * 7.4), 40px); line-height: 1.12;
   color: var(--plum); white-space: nowrap;
 }
@@ -509,29 +641,8 @@ button { font: inherit; color: inherit; }
 .js [data-reveal].in { opacity: 1; transform: none; }
 
 /* ==========================================================
-   NAVIGATION + MUSIC
+   NAVIGATION
    ========================================================== */
-.music {
-  position: fixed; z-index: 60;
-  top: calc(env(safe-area-inset-top, 0px) + 10px); right: 10px;
-  width: 44px; height: 44px; padding: 0;
-  display: grid; place-items: center;
-  border-radius: 50%;
-  background: rgba(247, 235, 230, .94);
-  border: 1px solid rgba(183, 133, 126, .8);
-  color: var(--plum);
-  box-shadow: 0 4px 14px rgba(86, 58, 71, .25);
-  cursor: pointer;
-  opacity: 0; pointer-events: none;
-  transition: opacity 1s ease;
-  -webkit-tap-highlight-color: transparent;
-}
-.music[hidden] { display: none; }
-body.is-opened .music { opacity: 1; pointer-events: auto; }
-.music svg { width: 21px; height: 21px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; grid-area: 1 / 1; }
-.music[aria-pressed="false"] .music__on { display: none; }
-.music[aria-pressed="true"]  .music__off { display: none; }
-.music[aria-pressed="false"].is-hint { animation: tapPulse 2.8s ease-in-out infinite; }
 
 /* ==========================================================
    LARGER SCREENS / SMALL TWEAKS
@@ -540,7 +651,7 @@ body.is-opened .music { opacity: 1; pointer-events: auto; }
 /* ==========================================================
    REDUCED MOTION
    ========================================================== */
-@media (prefers-reduced-motion: reduce) {
+  @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .opening, .opening.is-fast { transition-duration: .01s; }
   .js [data-reveal], .js [data-reveal="fade"] {
@@ -548,6 +659,6 @@ body.is-opened .music { opacity: 1; pointer-events: auto; }
     transition: opacity .3s linear;
     transition-delay: 0s;
   }
-  .page.is-visible .page__sheen, .tap, .tap--seal::before, .music.is-hint { animation: none; }
+  .page.is-visible .page__sheen, .tap, .tap--seal::before, .scroll-down { animation: none; }
   .content, .page__sheen { transform: none !important; }
 }

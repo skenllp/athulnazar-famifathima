@@ -7,7 +7,7 @@
 
   /* ---------- config ---------- */
   const WEDDING_TIME = new Date('2026-11-15T18:00:00+05:30').getTime(); // 6:00 PM IST
-  const MUSIC_SRC = 'assets/music.mp3';     // drop a file here to enable the music button; '' disables it
+  const MUSIC_SRC = 'assets/song.mp3';     // drop a file here to enable the music button; '' disables it
 
   const $ = (sel, ctx = document) => ctx.querySelector(sel);
   const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
@@ -24,97 +24,82 @@
   const firstPage = $('#invitation');
 
   /* ==========================================================
-     MUSIC (optional — only appears if assets/music.mp3 exists)
+     MUSIC - Background music (starts on user interaction)
      ========================================================== */
   const music = (() => {
-    const btn = $('#musicBtn');
-    let audio = null;
-    let available = false;
-    let resumeAfterHidden = false;
-
-    const setState = (on) => {
-      if (!btn) return;
-      btn.setAttribute('aria-pressed', String(on));
-      btn.setAttribute('aria-label', on ? 'Mute background music' : 'Play background music');
-      btn.classList.remove('is-hint');
-    };
-
-    if (MUSIC_SRC && btn) {
+    // Try to use the HTML audio element first
+    let audio = $('#bgMusic');
+    if (!audio) {
+      // Fallback: create audio element if not found
       audio = new Audio();
       audio.loop = true;
-      audio.volume = 0.6;
-      audio.preload = 'auto';           // buffer while the guest looks at the closed invitation
-      audio.addEventListener('loadedmetadata', () => {
-        available = true;
-        btn.hidden = false;
-        if (audio.paused) btn.classList.add('is-hint');
-      }, { once: true });
-      audio.addEventListener('error', () => {   // file missing → no button, no broken UI
-        available = false;
-        btn.hidden = true;
-      });
+      audio.preload = 'auto';
       audio.src = MUSIC_SRC;
-
-      btn.addEventListener('click', () => toggle());
-
-      // be polite: pause when the tab is hidden, resume if it was playing
-      document.addEventListener('visibilitychange', () => {
-        if (!audio || !available) return;
-        if (document.hidden && !audio.paused) { resumeAfterHidden = true; audio.pause(); }
-        else if (!document.hidden && resumeAfterHidden) { resumeAfterHidden = false; audio.play().catch(() => setState(false)); }
-      });
     }
-
-    /** Must be called from inside a user gesture (click/tap). Fades in gently. */
+    
     let started = false;
-    function play() {          // public: only the first call per page does anything (toggle handles later pauses/resumes)
-      if (started) return;
-      start();
-    }
-    function start() {
-      if (!audio) return;
-      started = true;
-      const target = 0.6;
-      audio.volume = 0;
-      const attempt = (retry) => {
-        const p = audio.play();
-        if (!p || !p.then) return;
-        p.then(() => {
-          setState(true);
-          let v = 0;
-          const fade = setInterval(() => {
-            v = Math.min(target, v + 0.05);
-            audio.volume = v;
-            if (v >= target) clearInterval(fade);
-          }, 120);
-        }).catch(() => {
-          // not buffered yet → try again as soon as it can play; otherwise leave the button for the guest
-          if (retry && !audio.error) audio.addEventListener('canplay', () => attempt(false), { once: true });
-          else { audio.volume = target; setState(false); }
-        });
-      };
-      attempt(true);
-    }
-    function toggle() {
-      if (!audio || !available) return;
-      if (audio.paused) start();
-      else { audio.pause(); setState(false); }
+    let isPlaying = false;
+    audio.volume = 0.6;
+
+    const musicControl = $('#musicControl');
+    
+    function updateButton() {
+      if (!musicControl) return;
+      musicControl.classList.toggle('is-playing', isPlaying);
+      musicControl.setAttribute('aria-label', isPlaying ? 'Pause music' : 'Play music');
     }
 
-    // If the invitation opens by itself, the browser won't allow sound yet.
-    // Start the music on the guest's first tap / click / key press instead.
-    function armOnFirstInteraction() {
-      if (!audio) return;
-      const evts = ['pointerup', 'touchend', 'click', 'keydown'];
-      const onFirst = (e) => {
-        evts.forEach((t) => document.removeEventListener(t, onFirst, true));
-        if (e.target && e.target.closest && e.target.closest('#musicBtn')) return;   // the speaker button handles itself
-        if (!started) start();
-      };
-      evts.forEach((t) => document.addEventListener(t, onFirst, true));
+    function start() {
+      if (!audio || started) return;
+      started = true;
+      
+      console.log('Starting wedding music...');
+      
+      const playPromise = audio.play();
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
+          console.log('✓ Wedding music playing!');
+          audio.volume = 0.6;
+          isPlaying = true;
+          updateButton();
+          if (musicControl) musicControl.hidden = false;
+        }).catch((error) => {
+          console.error('Failed to play music:', error.message);
+          isPlaying = false;
+          updateButton();
+          if (musicControl) musicControl.hidden = false;
+        });
+      }
     }
-    armOnFirstInteraction();
-    return { play };
+
+    function toggle() {
+      if (!audio) return;
+      
+      if (isPlaying) {
+        audio.pause();
+        isPlaying = false;
+      } else {
+        const playPromise = audio.play();
+        if (playPromise !== undefined) {
+          playPromise.then(() => {
+            isPlaying = true;
+            updateButton();
+          }).catch((error) => {
+            console.error('Failed to play music:', error.message);
+            isPlaying = false;
+            updateButton();
+          });
+        }
+      }
+      updateButton();
+    }
+
+    // Set up music control button
+    if (musicControl) {
+      musicControl.addEventListener('click', toggle);
+    }
+
+    return { start, toggle };
   })();
 
   /* ==========================================================
@@ -198,23 +183,41 @@
   if (firstSource) firstSource.addEventListener('error', () => revealInvitation({ fast: true }));
 
   let autoTimer = null;
-  function openNow({ withMusic = false } = {}) {
+  function openNow() {
     if (opened) return;
     opened = true;
     clearTimeout(autoTimer);
-    if (withMusic) music.play();                               // only inside a real user gesture
     tapBtn.hidden = true;
+    
+    // Start music when user clicks to open invitation
+    if (music && music.start) {
+      music.start();
+    }
+    
     if (reduceMotion) { revealInvitation(); return; }
     video.play().catch(() => revealInvitation({ fast: true }));
   }
   let opened = false;
 
-  tapBtn.addEventListener('click', () => openNow({ withMusic: true }));
+  tapBtn.addEventListener('click', () => openNow());
 
   // if the guest doesn't tap the seal, the invitation opens by itself after 6 seconds
   autoTimer = setTimeout(() => openNow(), 6000);
 
   startVideo();
+
+  /* ==========================================================
+     SCROLL DOWN BUTTON
+     ========================================================== */
+  const scrollDownBtn = $('#scrollDown');
+  if (scrollDownBtn) {
+    scrollDownBtn.addEventListener('click', () => {
+      const countdown = $('#countdown');
+      if (countdown) {
+        countdown.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  }
 
   /* ==========================================================
      SCROLL REVEALS (IntersectionObserver)

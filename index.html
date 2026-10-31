@@ -6,6 +6,7 @@
   <title>Dr. Fami Fathima &amp; Dr. Athul Nazar | Nikkah Invitation</title>
   <meta name="description" content="Join Dr. Fami Fathima and Dr. Athul Nazar for their Nikkah ceremony on 15 November 2026 at Marina Lawn, Bolgatty Palace and Island Resort, Ernakulam.">
   <meta name="theme-color" content="#B58F9B">
+  <meta name="version" content="1.2">
 
   <!-- Open Graph / Twitter -->
   <meta property="og:type" content="website">
@@ -28,7 +29,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&amp;family=DM+Sans:wght@400;500&amp;family=Great+Vibes&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&amp;family=DM+Sans:wght@400;500&amp;family=Great+Vibes&amp;family=Pinyon+Script&amp;display=swap" rel="stylesheet">
 
   <link rel="preload" as="image" href="assets/poster.jpg">
   <link rel="preload" as="image" href="assets/invitation.webp" type="image/webp">
@@ -67,10 +68,20 @@
     </div>
   </div>
 
-  <!-- ============ MUSIC (appears only if assets/music.mp3 exists) ============ -->
-  <button type="button" class="music" id="musicBtn" aria-pressed="false" aria-label="Play background music" hidden>
-    <svg class="music__on" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5H4z"/><path d="M15.5 9a4 4 0 010 6M18 6.5a8 8 0 010 11"/></svg>
-    <svg class="music__off" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5H4z"/><path d="M16 9.5l5 5M21 9.5l-5 5"/></svg>
+  <!-- Background Music -->
+  <audio id="bgMusic" loop preload="auto">
+    <source src="assets/song.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Music Control Button -->
+  <button type="button" class="music-control" id="musicControl" aria-label="Toggle music" hidden>
+    <svg class="music-control__icon music-control__icon--play" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M9 18V6l10 6-10 6z"/>
+    </svg>
+    <svg class="music-control__icon music-control__icon--pause" viewBox="0 0 24 24" aria-hidden="true">
+      <rect x="6" y="4" width="4" height="16"/>
+      <rect x="14" y="4" width="4" height="16"/>
+    </svg>
   </button>
 
     <main class="stage" id="stage">
@@ -106,6 +117,13 @@
           <p class="venue-name">Marina Lawn</p>
           <p class="venue-place">Bolgatty Palace and Island Resort<br>Ernakulam, Kerala</p>
         </div>
+
+        <button type="button" class="scroll-down" id="scrollDown" aria-label="Scroll down to see more" data-reveal="fade" style="--d:3.2s">
+          <span class="scroll-down__text">Scroll</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 5v14M5 12l7 7 7-7"/>
+          </svg>
+        </button>
       </div>
     </section>
 
